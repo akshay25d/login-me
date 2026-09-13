@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshay Santra Common Services Centre</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(193, 100, 193), rgb(144, 44, 187));
+            color: black;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+        }
+        .form-box, .form-box1 {
+            width: 100%;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            font-size: 34px;
+            text-align: center;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #e7d5d5;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #5c43cd;
+            color: #fff;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: 0.5s;
+        }
+        button:hover {
+            background: #3208ec;
+        }
+        p {
+            text-align: center;
+        }
+        a {
+            color: #5c43cd;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .dropbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 10;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover { background-color: #ddd; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown:hover .dropbtn { background-color: #3e8e41; }
+
+        #image1 {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .box1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 5px solid black;
+            background-color: #e7d5d5;
+            border-radius: 20px 20px 0 0;
+        }
+        h1 {
+            text-align: center;
+            color: #7a22ed;
+            font-size: 18px;
+            padding: 10px;
+            border: 2px solid rgb(14, 205, 148);
+            background-color: lightblue;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .cotaniner1 {
+            position: relative;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            overflow: hidden;
+        }
+        .cotaniner1::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #ff00ff;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: glowMove 4s infinite alternate;
+        }
+        @keyframes glowMove {
+            0% { transform: translate(-50px, -30px); }
+            100% { transform: translate(50px, 30px); }
+        }
+        .box2 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-top: 15px;
+        }
+        @media (min-width: 500px) {
+            .box2 {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+        #image2 {
+            width: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .user-db-info {
+            background: #f4f0f9;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .user-db-info p {
+            text-align: left;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-box" id="login-screen">
+            <form id="login-form">
+                <h2>Login</h2>
+                <div id="login-alert"></div>
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit" id="login-btn">Login</button>
+                <p>Don't have an account? <a id="show-register">Register</a></p>
+            </form>
+        </div>
+
+        <div class="form-box1 hidden" id="register-screen">
+            <form id="register-form">
+                <h2>Register</h2>
+                <div id="register-alert"></div>
+                <input type="text" id="reg-name" oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')" placeholder="Full Name" required>
+                <input type="number" id="reg-number" placeholder="Mobile Number" required>
+                <input type="email" id="reg-email" placeholder="Email" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <button type="submit" id="register-btn">Register</button>
+                <p>Already have an account? <a id="show-login">Login</a></p>
+            </form>
+        </div>
+
+        <div class="cotaniner1 hidden" id="welcome-screen">
+            <div class="box1">
+                <div class="dropdown">
+                    <button class="dropbtn">Menu</button>
+                    <div class="dropdown-content">
+                        <a href="#">Profile</a>
+                        <a href="#">Ask Me</a>
+                        <a href="#">About</a>
+                    </div>
+                </div>
+                <h3 id="welcome-user-greeting" style="font-size: 15px; color: #333; font-weight: bold;">Welcome!</h3>
+                <img id="image1" src="Akshay.jpeg" alt="Profile" onerror="this.src='https://placehold.co/100x100/5c43cd/ffffff?text=AS'">
+            </div>
+
+            <h1>Akshay Santra Common Services Centre</h1>
+
+            <div class="box2">
+                <p style="font-weight: normal; text-align: left; line-height: 1.5;">
+                    Hello, my name is <span style="font-weight: bold;">Akshay Santra</span>. My father's name is Rahim Santra. I am from Gopalpur village in Paschim Medinipur, West Bengal. I am proud to be the son of a farmer. My family background has taught me the values of hard work, honesty, dedication, and responsibility. I am a student with a Diploma in Computer Science and Technology. I am interested in computers and technology, and I aim to keep learning new skills, improving myself, and building a successful career in the field of technology.
+                </p>
+                <img id="image2" src="akshay1.jpg" alt="Akshay Photo" onerror="this.src='https://placehold.co/180x220/e7d5d5/333333?text=Photo'">
+            </div>
+
+            <div class="user-db-info">
+                <p><strong>Registered Name:</strong> <span id="disp-fullname">-</span></p>
+                <p><strong>Registered Mobile:</strong> <span id="disp-number">-</span></p>
+                <p><strong>Registered Email:</strong> <span id="disp-email">-</span></p>
+            </div>
+
+            <button type="button" id="logout-btn" style="margin-top: 15px; margin-bottom: 0;">Logout</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAuqprV4uVabimh-ZO99CIAK08vFdM4wo8",
+            authDomain: "login-me-71357.firebaseapp.com",
+            projectId: "login-me-71357",
+            storageBucket: "login-me-71357.firebasestorage.app",
+            messagingSenderId: "276063778916",
+            appId: "1:276063778916:web:92858cbe5bdddb6890c771",
+            measurementId: "G-7MRK44J170"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        setPersistence(auth, browserLocalPersistence);
+
+        const loginScreen = document.getElementById('login-screen');
+        const registerScreen = document.getElementById('register-screen');
+        const welcomeScreen = document.getElementById('welcome-screen');
+
+        const showRegisterLink = document.getElementById('show-register');
+        const showLoginLink = document.getElementById('show-login');
+
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        const loginAlert = document.getElementById('login-alert');
+        const registerAlert = document.getElementById('register-alert');
+
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginScreen.classList.add('hidden');
+            registerScreen.classList.remove('hidden');
+            loginAlert.innerHTML = '';
+        });
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerScreen.classList.add('hidden');
+            loginScreen.classList.remove('hidden');
+            registerAlert.innerHTML = '';
+        });
+
+        async function loadUserData(user) {
+            let fullName = "Akshay Santra";
+            let mobileNumber = "Not Provided";
+            let email = user.email;
+
+            try {
+                const userDocRef = doc(db, "users", user.uid);
+                const userDocSnap = await getDoc(userDocRef);
+                if (userDocSnap.exists()) {
+                    const data = userDocSnap.data();
+                    fullName = data.name || fullName;
+                    mobileNumber = data.number || mobileNumber;
+                    email = data.email || email;
+                }
+            } catch (err) {
+                console.warn("Could not retrieve profile from database, using defaults.", err);
+            }
+
+            document.getElementById('welcome-user-greeting').innerText = `Hello, ${fullName}`;
+            document.getElementById('disp-fullname').innerText = fullName;
+            document.getElementById('disp-number').innerText = mobileNumber;
+            document.getElementById('disp-email').innerText = email;
+
+            loginScreen.classList.add('hidden');
+            registerScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        }
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            registerAlert.innerHTML = '';
+            
+            const name = document.getElementById('reg-name').value.trim();
+            const number = document.getElementById('reg-number').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+
+            const registerBtn = document.getElementById('register-btn');
+            registerBtn.innerText = "Registering...";
+            registerBtn.disabled = true;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                await setDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    number: number,
+                    email: email,
+                    createdAt: new Date().toISOString()
+                });
+
+                registerScreen.classList.add('hidden');
+                loginScreen.classList.remove('hidden');
+                loginAlert.innerHTML = `<div class="alert-success">Registration successful! Please log in.</div>`;
+                registerForm.reset();
+            } catch (error) {
+                registerAlert.innerHTML = `<div class="alert-error">${error.message.replace('Firebase: ', '')}</div>`;
+            } finally {
+                registerBtn.innerText = "Register";
+                registerBtn.disabled = false;
+            }
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginAlert.innerHTML = '';
+
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const loginBtn = document.getElementById('login-btn');
+            loginBtn.innerText = "Logging in...";
+            loginBtn.disabled = true;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                await loadUserData(userCredential.user);
+                loginForm.reset();
+            } catch (error) {
+                loginAlert.innerHTML = `<div class="alert-error">Invalid email or password.</div>`;
+            } finally {
+                loginBtn.innerText = "Login";
+                loginBtn.disabled = false;
+            }
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            await signOut(auth);
+            welcomeScreen.classList.add('hidden');
+            loginScreen.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
