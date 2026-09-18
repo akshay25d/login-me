@@ -1,0 +1,6 @@
+# Allow search engines to crawl the public site.
+User-agent: *
+Allow: /
+
+# Sitemap location for Google Search Console and other crawlers.
+Sitemap: https://login-me-71357.web.app/sitemap.xml
