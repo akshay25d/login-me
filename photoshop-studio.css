@@ -1,0 +1,394 @@
+/* ==========================================================================
+   PHOTOSHOP WEB STUDIO - DARK THEME & LAYOUT STYLES
+   ========================================================================== */
+
+:root {
+    --ps-bg-darkest: #181818;
+    --ps-bg-dark: #202020;
+    --ps-bg-panel: #262626;
+    --ps-bg-panel-light: #323232;
+    --ps-border: #383838;
+    --ps-border-light: #484848;
+    --ps-accent: #0078d4;
+    --ps-accent-hover: #1084d8;
+    --ps-text-main: #e0e0e0;
+    --ps-text-muted: #999999;
+    --ps-text-dim: #707070;
+}
+
+/* Modal Wrapper */
+#photoStudioModal {
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#photoStudioModal.hidden,
+#photoStudioModal .hidden,
+.ps-hidden {
+    display: none !important;
+}
+
+/* Main Studio Window */
+.ps-window {
+    background-color: var(--ps-bg-dark);
+    color: var(--ps-text-main);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Scrollbar Styling for Studio Panels */
+.ps-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.ps-scrollbar::-webkit-scrollbar-track {
+    background: var(--ps-bg-dark);
+}
+.ps-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--ps-border-light);
+    border-radius: 3px;
+}
+.ps-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #606060;
+}
+
+/* Top Menu Dropdowns */
+.ps-menu-item {
+    position: relative;
+}
+.ps-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 120;
+    min-width: 220px;
+    background-color: var(--ps-bg-panel);
+    border: 1px solid var(--ps-border-light);
+    border-radius: 4px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    padding: 4px 0;
+}
+.ps-menu-item:hover .ps-menu-dropdown,
+.ps-menu-item.active .ps-menu-dropdown {
+    display: block;
+}
+.ps-menu-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--ps-text-main);
+    text-align: left;
+    transition: background-color 0.1s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.ps-menu-action:hover {
+    background-color: var(--ps-accent);
+    color: #ffffff;
+}
+.ps-menu-divider {
+    height: 1px;
+    background-color: var(--ps-border);
+    margin: 4px 0;
+}
+
+/* Toolbar Buttons */
+.ps-tool-btn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: #c4c4c4;
+    transition: all 0.15s;
+    position: relative;
+    background: transparent;
+    border: 1px solid transparent;
+}
+.ps-tool-btn:hover {
+    background-color: var(--ps-bg-panel-light);
+    color: #ffffff;
+    border-color: var(--ps-border-light);
+}
+.ps-tool-btn.active {
+    background-color: #3b3b3b;
+    color: #38bdf8;
+    border-color: #0284c7;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Tooltip on hover */
+.ps-tool-btn[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #111111;
+    color: #ffffff;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 150;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border: 1px solid var(--ps-border-light);
+}
+
+/* Checkerboard Background for Transparent Canvas */
+.ps-checkerboard {
+    background-color: #1a1a1a;
+    background-image: 
+        linear-gradient(45deg, #222222 25%, transparent 25%), 
+        linear-gradient(-45deg, #222222 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #222222 75%), 
+        linear-gradient(-45deg, transparent 75%, #222222 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* Canvas Viewport */
+.ps-canvas-viewport {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+.ps-canvas-viewport.tool-hand {
+    cursor: grab;
+}
+.ps-canvas-viewport.tool-hand:active {
+    cursor: grabbing;
+}
+.ps-canvas-viewport.tool-crosshair {
+    cursor: crosshair;
+}
+.ps-canvas-viewport.tool-eyedropper {
+    cursor: cell;
+}
+.ps-canvas-viewport.tool-text {
+    cursor: text;
+}
+
+/* Canvas Container with drop shadow */
+.ps-canvas-container {
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background-color: transparent;
+    transform-origin: center center;
+}
+
+/* Brush Cursor Ring */
+#ps-brush-cursor {
+    position: absolute;
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 2px rgba(0,0,0,0.8);
+    display: none;
+    z-index: 100;
+}
+
+/* Rulers */
+.ps-ruler-top {
+    height: 18px;
+    background: #232323;
+    border-bottom: 1px solid #333333;
+    font-size: 9px;
+    color: #777777;
+    overflow: hidden;
+    position: relative;
+}
+.ps-ruler-left {
+    width: 18px;
+    background: #232323;
+    border-right: 1px solid #333333;
+    font-size: 9px;
+    color: #777777;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Crop Box Overlay */
+.ps-crop-overlay {
+    position: absolute;
+    border: 1.5px dashed #38bdf8;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.65);
+    display: none;
+    z-index: 90;
+    pointer-events: all;
+    cursor: move;
+}
+.ps-crop-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+.ps-crop-grid div {
+    border: 0.5px solid rgba(255, 255, 255, 0.25);
+}
+.ps-crop-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border: 1.5px solid #0284c7;
+    border-radius: 2px;
+}
+.ps-crop-handle.tl { top: -5px; left: -5px; cursor: nwse-resize; }
+.ps-crop-handle.tr { top: -5px; right: -5px; cursor: nesw-resize; }
+.ps-crop-handle.bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.ps-crop-handle.br { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.ps-crop-handle.tc { top: -5px; left: calc(50% - 5px); cursor: ns-resize; }
+.ps-crop-handle.bc { bottom: -5px; left: calc(50% - 5px); cursor: ns-resize; }
+.ps-crop-handle.ml { top: calc(50% - 5px); left: -5px; cursor: ew-resize; }
+.ps-crop-handle.mr { top: calc(50% - 5px); right: -5px; cursor: ew-resize; }
+
+/* Custom Sliders */
+.ps-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: #404040;
+    border-radius: 2px;
+    outline: none;
+    transition: background 0.15s;
+}
+.ps-range:hover {
+    background: #505050;
+}
+.ps-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+}
+.ps-range::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+/* Right Panel Tabs */
+.ps-tab-btn {
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ps-text-muted);
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    background: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+.ps-tab-btn:hover {
+    color: var(--ps-text-main);
+}
+.ps-tab-btn.active {
+    color: #38bdf8;
+    border-bottom-color: #38bdf8;
+}
+
+/* Preset Card in Filters */
+.ps-filter-card {
+    background-color: #2b2b2b;
+    border: 1px solid #3c3c3c;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.ps-filter-card:hover {
+    background-color: #383838;
+    border-color: #0284c7;
+    transform: translateY(-1px);
+}
+.ps-filter-card.active {
+    border-color: #38bdf8;
+    background-color: #1e3a5f;
+    box-shadow: 0 0 0 1px #38bdf8;
+}
+
+/* Layers item in Layers panel */
+.ps-layer-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: #2a2a2a;
+    border: 1px solid #383838;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    transition: background 0.1s;
+}
+.ps-layer-item:hover {
+    background: #333333;
+}
+.ps-layer-item.active {
+    background: #1e3a5f;
+    border-color: #0284c7;
+    color: #ffffff;
+}
+
+/* History log item */
+.ps-history-item {
+    padding: 5px 10px;
+    font-size: 11px;
+    color: #b0b0b0;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.1s;
+}
+.ps-history-item:hover {
+    background: #323232;
+    color: #ffffff;
+}
+.ps-history-item.active {
+    background: #2b3a4a;
+    border-left-color: #38bdf8;
+    color: #ffffff;
+    font-weight: 600;
+}
+.ps-history-item.undone {
+    opacity: 0.45;
+    text-decoration: line-through;
+}
+
+/* Draggable on-canvas Text Object */
+.ps-text-element {
+    position: absolute;
+    user-select: none;
+    cursor: move;
+    padding: 4px 8px;
+    border: 1px dashed transparent;
+    transition: border-color 0.15s;
+    line-height: 1.2;
+}
+.ps-text-element:hover,
+.ps-text-element.selected {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.08);
+}
