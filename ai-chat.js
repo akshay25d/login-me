@@ -8,19 +8,24 @@
 (function () {
     'use strict';
 
+    const safeStorage = {
+        getItem(key) { try { return localStorage.getItem(key); } catch { return null; } },
+        setItem(key, value) { try { localStorage.setItem(key, value); } catch { /* Keep this session usable when storage is unavailable. */ } }
+    };
+
     // State Management
     const AIChat = {
-        activeModel: localStorage.getItem('ai_chat_model') || 'local-csc',
+        activeModel: safeStorage.getItem('ai_chat_model') || 'local-csc',
         activeChatId: null,
         chats: [],
         isGenerating: false,
         isListening: false,
         recognition: null,
         speechSynthesisUtterance: null,
-        theme: localStorage.getItem('ai_chat_theme') || 'white', // 'white' default
+        theme: safeStorage.getItem('ai_chat_theme') || 'white', // 'white' default
         apiKeys: {
-            openai: localStorage.getItem('ai_key_openai') || '',
-            gemini: localStorage.getItem('ai_key_gemini') || ''
+            openai: safeStorage.getItem('ai_key_openai') || '',
+            gemini: safeStorage.getItem('ai_key_gemini') || ''
         }
     };
 
@@ -313,7 +318,7 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
         renderSidebar();
         renderActiveChat();
 
-        if (initialPrompt) {
+        if (typeof initialPrompt === 'string' && initialPrompt) {
             const input = document.getElementById('ai-chat-input');
             if (input) {
                 input.value = initialPrompt;
@@ -332,6 +337,8 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
         modal.classList.add('hidden');
         modal.style.display = 'none';
 
+        if (AIChat.recognition && AIChat.isListening) AIChat.recognition.stop();
+        window.AppRouter?.onModalClosed('aiChatModal');
         if (window.speechSynthesis) {
             window.speechSynthesis.cancel();
         }
@@ -340,9 +347,14 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
     // --- Chat Storage & Session Management ---
     function loadChatsFromStorage() {
         try {
-            const stored = localStorage.getItem('ai_chat_sessions');
+            const stored = safeStorage.getItem('ai_chat_sessions');
             if (stored) {
-                AIChat.chats = JSON.parse(stored);
+                const parsed = JSON.parse(stored);
+                AIChat.chats = Array.isArray(parsed) ? parsed.filter(chat =>
+                    chat && typeof chat.id === 'string' && /^chat_[a-zA-Z0-9_-]+$/.test(chat.id) &&
+                    typeof chat.title === 'string' && Array.isArray(chat.messages) &&
+                    chat.messages.every(m => m && ['user', 'assistant'].includes(m.role) && typeof m.content === 'string')
+                ).slice(0, 30) : [];
             }
         } catch (e) {
             AIChat.chats = [];
@@ -357,7 +369,7 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
 
     function saveChatsToStorage() {
         try {
-            localStorage.setItem('ai_chat_sessions', JSON.stringify(AIChat.chats.slice(0, 30)));
+            safeStorage.setItem('ai_chat_sessions', JSON.stringify(AIChat.chats.slice(0, 30)));
         } catch (e) { }
     }
 
@@ -699,7 +711,7 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
 
     window.aiSetModel = function (modelKey) {
         AIChat.activeModel = modelKey;
-        localStorage.setItem('ai_chat_model', modelKey);
+        safeStorage.setItem('ai_chat_model', modelKey);
         renderActiveChat();
     };
 
@@ -709,7 +721,7 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
 
         const isDark = modal.classList.toggle('theme-dark');
         AIChat.theme = isDark ? 'dark' : 'white';
-        localStorage.setItem('ai_chat_theme', AIChat.theme);
+        safeStorage.setItem('ai_chat_theme', AIChat.theme);
 
         const btn = document.getElementById('ai-theme-toggle-btn');
         if (btn) {
@@ -737,8 +749,8 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
 
         AIChat.apiKeys.openai = openai;
         AIChat.apiKeys.gemini = gemini;
-        localStorage.setItem('ai_key_openai', openai);
-        localStorage.setItem('ai_key_gemini', gemini);
+        safeStorage.setItem('ai_key_openai', openai);
+        safeStorage.setItem('ai_key_gemini', gemini);
 
         aiCloseSettingsModal();
         alert('AI settings saved successfully!');
@@ -748,14 +760,8 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
     function formatMarkdown(text) {
         if (!text) return '';
 
-        // If marked.js is available on window, use it for rich GitHub-flavored markdown
-        if (window.marked && typeof window.marked.parse === 'function') {
-            try {
-                return window.marked.parse(text);
-            } catch (e) { }
-        }
-
-        // Lightweight fallback parser
+        // Escape untrusted model output before adding presentation markup.
+        // Lightweight formatter
         let html = escapeHtml(text);
 
         // Headings
@@ -781,7 +787,7 @@ Aapke prashn: *"**${escapeHtml(userText)}**"* par hamare pass nimnlikhit jankari
     }
 
     function escapeHtml(str) {
-        return (str || '').replace(/[&<>"']/g, (m) => ({
+        return String(str || '').replace(/[&<>"']/g, (m) => ({
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',

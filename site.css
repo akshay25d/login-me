@@ -1,0 +1,882 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffffff;
+    color: black;
+    padding: 0;
+    overflow-x: hidden;
+}
+.container {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.form-box, .form-box1 {
+    width: 100%;
+    min-height: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+}
+.form-box form, .form-box1 form {
+    width: 100%;
+    max-width: none;
+}
+#log-in1, #reg-txt {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 6px;
+    text-decoration: none;
+    font-weight: 700;
+}
+#login-email, #login-password, #reg-name, #reg-password, #reg-number, #reg-email { 
+    width: 100%;
+    padding: 12px;
+    background: #e7d5d5;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #5c43cd;
+    color: #fff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+.btn-primary:hover {
+    background: #3208ec;
+}
+p {
+    text-align: center;
+}
+a {
+    color: #5c43cd;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: underline;
+}
+.hidden {
+    display: none !important;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* preserved exact original header styles */
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 50;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-content a:hover { background-color: #ddd; }
+.dropdown:hover .dropdown-content { display: block; }
+.dropdown:hover .dropbtn { background-color: #3e8e41; }
+
+#image1 {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.box1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 5px solid black;
+    background-color: #e7d5d5;
+    border-radius: 20px 20px 0 0;
+}
+h1 {
+    text-align: center;
+    color: #7a22ed;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: 2px solid rgb(14, 205, 148);
+    background-color: lightblue;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+.cotaniner1 {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: #ffffff;
+    border-radius: 0;
+    box-shadow: none;
+    padding: clamp(12px, 2vw, 32px);
+    overflow: hidden;
+}
+.cotaniner1::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 0, 255, 0.15);
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+    animation: glowMove 6s infinite alternate;
+}
+@keyframes glowMove {
+    0% { transform: translate(-50px, -30px); }
+    100% { transform: translate(150px, 80px); }
+}
+
+/* Custom scrollbar for modern dashboard tables */
+.custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c7d2fe;
+    border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #818cf8;
+}
+
+/* Dashboard section switcher: keeps the workspace focused on one panel. */
+.dashboard-section-shortcut {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border: 1px solid rgba(221, 214, 254, 0.9);
+    border-radius: 10px;
+    background: #ffffff;
+    color: #4c1d95;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.dashboard-section-shortcut:hover {
+    background: #f5f3ff;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(91, 33, 182, 0.14);
+}
+.dashboard-section-shortcut.is-active {
+    background: #6d28d9;
+    color: #ffffff;
+    border-color: #6d28d9;
+    box-shadow: 0 5px 14px rgba(109, 40, 217, 0.28);
+}
+.dashboard-section-shortcut:focus-visible {
+    outline: 3px solid rgba(167, 139, 250, 0.55);
+    outline-offset: 2px;
+}
+.customer-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    background: #fff;
+    color: #374151;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.customer-filter-chip.is-active {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: #fff;
+}
+.customer-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.customer-card:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.1);
+}
+.report-period-tab {
+    border: 1px solid #ddd6fe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #5b21b6;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.report-period-tab:hover { background: #f5f3ff; }
+.report-period-tab.is-active {
+    border-color: #6d28d9;
+    background: #6d28d9;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(109, 40, 217, 0.2);
+}
+
+/* Passport-photo print sheet: measurements are kept in millimetres so the
+   browser print dialog preserves the chosen passport-photo dimensions. */
+.passport-print-sheet {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10mm;
+    background: #fff;
+    display: grid;
+    grid-template-columns: repeat(var(--photo-columns), var(--photo-width));
+    grid-auto-rows: var(--photo-height);
+    gap: 3mm;
+    align-content: start;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.16);
+}
+.passport-photo-cell {
+    width: var(--photo-width);
+    height: var(--photo-height);
+    overflow: hidden;
+    background: #f8fafc;
+    border: 0.2mm dashed #cbd5e1;
+}
+.passport-photo-cell img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.passport-sheet-preview {
+    margin: 0 auto;
+    overflow: hidden;
+    transform-origin: top center;
+    max-width: 100%;
+}
+@media screen and (max-width: 768px) {
+    .passport-sheet-preview {
+        transform: scale(0.48);
+        margin-bottom: -150mm;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .passport-sheet-preview {
+        transform: scale(0.68);
+        margin-bottom: -90mm;
+    }
+}
+@media print {
+    @page { size: A4 portrait; margin: 0; }
+    body.passport-photo-printing { display: block !important; padding: 0 !important; background: #fff !important; }
+    body.passport-photo-printing * { visibility: hidden !important; }
+    body.passport-photo-printing #passport-print-area, body.passport-photo-printing #passport-print-area * { visibility: visible !important; }
+    body.passport-photo-printing #passport-print-area {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 210mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    body.passport-photo-printing #passportPhotoModal, body.passport-photo-printing #passportPhotoModal > div, body.passport-photo-printing #passport-photo-step-layout, body.passport-photo-printing #passport-photo-step-layout > div, body.passport-photo-printing #pps-layout-view {
+        overflow: visible !important;
+        max-height: none !important;
+        background: transparent !important;
+    }
+    body.passport-photo-printing .passport-print-sheet {
+        box-shadow: none !important;
+        break-after: page;
+        page-break-after: always;
+    }
+    body.passport-photo-printing .passport-print-sheet:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+
+/* Keep the dashboard edge-to-edge while preserving comfortable space
+   around content on narrow screens. */
+@media (max-width: 640px) {
+    .cotaniner1 {
+        padding: 10px;
+    }
+    .box1 {
+        gap: 10px;
+        padding: 10px;
+    }
+}
+
+/* ============================================================
+   PASSPORT PHOTO PRINT STUDIO — Split-panel redesign
+   ============================================================ */
+
+/* Dialog shell */
+.pps-dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1100px;
+    max-height: 96vh;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(15,23,42,0.22);
+    border: 1px solid #f1f5f9;
+    overflow: hidden;
+}
+
+/* Header with step indicator */
+.pps-header {
+    flex-shrink: 0;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #fff;
+    position: relative;
+}
+
+/* Step indicator row */
+.pps-step-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 14px;
+}
+.pps-step {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+.pps-step.is-active  { color: #a21caf; }
+.pps-step.is-done    { color: #059669; }
+.pps-step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    background: #e2e8f0;
+    color: #64748b;
+    flex-shrink: 0;
+    transition: background 0.3s, color 0.3s;
+}
+.pps-step.is-active  .pps-step-num { background: #a21caf; color: #fff; }
+.pps-step.is-done    .pps-step-num { background: #059669; color: #fff; }
+.pps-step-line {
+    flex: 1;
+    height: 2px;
+    min-width: 18px;
+    max-width: 48px;
+    background: #e2e8f0;
+    margin: 0 6px;
+    border-radius: 2px;
+    transition: background 0.3s;
+}
+.pps-step-line.is-done { background: #059669; }
+
+/* Body — left + right columns */
+.pps-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ---- LEFT PANEL ---- */
+.pps-left {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #f1f5f9;
+    background: #fafafa;
+    overflow-y: auto;
+}
+
+/* Upload zone (visible before photo selected) */
+.pps-upload-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 260px;
+    padding: 24px 18px;
+    margin: 16px;
+    border: 2px dashed #e879f9;
+    background: rgba(232,121,249,0.04);
+    border-radius: 18px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, border-color 0.2s;
+}
+.pps-upload-zone:hover {
+    background: rgba(232,121,249,0.08);
+    border-color: #c026d3;
+}
+
+/* Preview panel (visible after photo selected) */
+.pps-preview-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 12px 14px;
+    position: relative;
+    width: 100%;
+}
+.pps-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.pps-live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #701a75;
+    background: #fae8ff;
+    border: 1px solid #f0abfc;
+    padding: 2px 7px;
+    border-radius: 12px;
+}
+.pps-live-dot {
+    width: 6px;
+    height: 6px;
+    background: #c026d3;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(192, 38, 211, 0.7);
+    animation: ppsPulse 1.8s infinite;
+}
+@keyframes ppsPulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(192, 38, 211, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 5px rgba(192, 38, 211, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(192, 38, 211, 0); }
+}
+.pps-replace-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #475569;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 3px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.pps-replace-pill-btn:hover {
+    color: #0f172a;
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+.pps-preview-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+}
+.pps-live-stage {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.18), 0 4px 10px -2px rgba(15, 23, 42, 0.08);
+    border: 1.5px solid #e2e8f0;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.pps-live-stage:active {
+    cursor: grabbing;
+}
+.pps-live-img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    max-width: none !important;
+    max-height: none !important;
+    transform-origin: center center;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    display: block;
+}
+/* Guidelines overlay */
+.pps-live-guides {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.pps-live-guides.hidden {
+    display: none;
+}
+.pps-guide-border {
+    position: absolute;
+    inset: 0;
+    border: 1.5px dashed rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    pointer-events: none;
+}
+.pps-guide-line-h {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+.pps-guide-eye {
+    top: 35%;
+}
+.pps-guide-chin {
+    top: 75%;
+}
+.pps-guide-line-v {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+/* Preview tools bar */
+.pps-preview-tools {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 8px;
+}
+.pps-tool-btn {
+    font-size: 10px;
+    font-weight: 600;
+    color: #475569;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s;
+}
+.pps-tool-btn:hover {
+    color: #a21caf;
+    border-color: #f0abfc;
+    background: #fdf4ff;
+}
+.pps-tool-btn.is-active {
+    color: #a21caf;
+    background: #fdf4ff;
+    border-color: #f0abfc;
+}
+.pps-preview-meta {
+    margin-top: 8px;
+    text-align: center;
+    width: 100%;
+}
+.pps-preview-filename {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 230px;
+    margin: 0 auto;
+}
+.pps-preview-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 5px;
+    background: #fdf4ff;
+    border: 1px solid #f0abfc;
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #a21caf;
+}
+
+/* ---- RIGHT PANEL — sliding steps ---- */
+.pps-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+.pps-slides-viewport {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+.pps-slides-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pps-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px 22px;
+    box-sizing: border-box;
+}
+.pps-slide-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Slide nav buttons row */
+.pps-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-top: 1px solid #f1f5f9;
+    background: #fff;
+    flex-shrink: 0;
+}
+.pps-btn-back {
+    padding: 9px 16px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #475569;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+.pps-btn-back:hover { background: #f1f5f9; }
+.pps-btn-next {
+    padding: 9px 20px;
+    background: #a21caf;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+.pps-btn-next:hover:not(:disabled) { background: #86198f; }
+.pps-btn-next:disabled {
+    background: #f0abfc;
+    color: #e879f9;
+    cursor: not-allowed;
+}
+.pps-btn-generate {
+    padding: 9px 18px;
+    background: #059669;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+.pps-btn-generate:hover { background: #047857; }
+
+/* Layout view (A4 preview) */
+#pps-layout-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+.pps-layout-scroll {
+    flex: 1;
+    overflow-y: auto;
+    background: #e2e8f0;
+    padding: 16px;
+    border-radius: 0;
+}
+
+/* Mobile: stack columns vertically */
+@media (max-width: 700px) {
+    .pps-body       { flex-direction: column; }
+    .pps-left       { width: 100%; border-right: none; border-bottom: 1px solid #f1f5f9; max-height: 290px; }
+    .pps-upload-zone { min-height: 120px; margin: 10px; }
+    .pps-preview-wrap { max-width: 150px; }
+    .pps-dialog     { max-height: 99vh; border-radius: 14px; }
+}
+
+/* Print overrides for new IDs */
+@media print {
+    body.passport-photo-printing #pps-layout-view,
+    body.passport-photo-printing #pps-layout-view > div {
+        overflow: visible !important;
+        max-height: none !important;
+        background: transparent !important;
+    }
+}
+
+/* Shared keyboard, dialog and small-screen behavior. */
+.skip-link { position: fixed; top: -100px; left: 12px; z-index: 200; padding: 12px; background: #fff; color: #4c1d95; }
+.skip-link:focus { top: 12px; }
+:focus-visible { outline: 3px solid #7c3aed !important; outline-offset: 3px; }
+.modal-open { overflow: hidden; }
+.dropdown:hover .dropdown-content { display: none; }
+.dropdown.is-open .dropdown-content { display: block; }
+.dropbtn { background: #047857; }
+input, select, textarea { max-width: 100%; }
+[id$="Modal"] { overscroll-behavior: contain; }
+@media (max-width: 640px) {
+    input, select, textarea { font-size: 16px !important; }
+    .cotaniner1 { padding: 10px; }
+    .box1 { flex-wrap: wrap; gap: 8px; }
+    .ai-chat-window { height: 96dvh; }
+    #aiChatModal main { min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+#privacyPolicyModal .text-gray-400, #termsModal .text-gray-400,
+#passportPhotoModal .text-gray-400, #passportPhotoModal .text-gray-500 { color: #475569; }
+#privacyPolicyModal button.bg-emerald-600 { background-color: #047857; }
+#termsModal button.bg-orange-500 { background-color: #c2410c; }
+#passportPhotoModal .pps-step:not(.active) { color: #64748b; }
+#image-editor-photo-tab[aria-pressed="true"], #image-editor-signature-tab[aria-pressed="true"] { background-color: #0e7490; }
+#aiChatModal aside:not(.hidden) { display: flex; }
+@media (max-width: 767px) {
+    #ai-chat-sidebar:not(.hidden) { position: absolute; inset: 0 auto 0 0; z-index: 30; width: min(75%, 280px); box-shadow: 4px 0 20px #0003; }
+}
+@media print {
+    body.invoice-printing { display: block; overflow: visible; }
+    body.invoice-printing * { visibility: hidden; }
+    body.invoice-printing #printable-invoice,
+    body.invoice-printing #printable-invoice * { visibility: visible; }
+    body.invoice-printing #billModal { position: absolute; inset: 0; padding: 0; background: white; }
+    body.invoice-printing #billModal > div { max-height: none; overflow: visible; border: 0; box-shadow: none; }
+    body.invoice-printing #printable-invoice { position: absolute; inset: 0 auto auto 0; width: 180mm; padding: 10mm; }
+    body.invoice-printing input { border: 0; background: white; width: 100%; }
+}
+#privacyPolicyModal a.text-emerald-600 { color: #047857; }
+#image-editor-empty-preview { color: #64748b; }
+#aiChatModal .bg-teal-600 { background-color: #0f766e; }
+#aiChatModal:not(.theme-dark) .text-gray-400 { color: #64748b; }
+#panApplicationModal .bg-emerald-600 { background-color: #047857; }
+#panApplicationModal .bg-emerald-600 .opacity-80 { opacity: 1; }
+#transaction-save-btn { background-color: #0f766e; }
+#reportsModal .text-gray-400 { color: #64748b; }
