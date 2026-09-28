@@ -122,9 +122,7 @@
     window.PS = PS;
 
     // --- Initialization ---
-    document.addEventListener('DOMContentLoaded', () => {
-        initStudio();
-    });
+    // Allocate canvases and tool listeners when the studio is first opened.
 
     function initStudio() {
         PS.mainCanvas = document.getElementById('ps-main-canvas');
@@ -162,7 +160,7 @@
         if (!PS.mainCanvas) initStudio();
 
         // If an image URL or data URI was passed, load it; otherwise if no image, show welcome state
-        if (initialImageUrl) {
+        if (typeof initialImageUrl === 'string' && initialImageUrl) {
             loadImageFromUrl(initialImageUrl);
         } else if (!PS.imageLoaded) {
             // Default blank / welcome
@@ -536,7 +534,7 @@
 
     window.psHandleAdjustmentChange = function (prop, value) {
         PS.adjustments[prop] = parseFloat(value);
-        const disp = document.getElementById(`ps-adj-${prop}-val`);
+        const disp = document.getElementById(`ps-adj-${prop === 'hueRotate' ? 'huerotate' : prop}-val`);
         if (disp) disp.textContent = value;
         applyAdjustmentsToBase();
     };

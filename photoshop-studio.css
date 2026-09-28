@@ -392,3 +392,19 @@
     border-color: #38bdf8;
     background: rgba(56, 189, 248, 0.08);
 }
+
+/* Stack the settings below the canvas so editing remains usable on phones. */
+.ps-window, .ps-window main { min-width: 0; min-height: 0; }
+@media (max-width: 767px) {
+    #photoStudioModal { height: 100dvh; }
+    .ps-window > header { height: auto; min-height: 40px; flex-wrap: wrap; gap: 8px; padding: 8px; }
+    .ps-window > header > div:first-child { min-width: 0; flex: 1 1 100%; }
+    .ps-window > header nav { flex-wrap: wrap; }
+    .ps-window > .ps-workspace { display: grid; grid-template-columns: 46px minmax(0, 1fr); overflow-y: auto; }
+    .ps-workspace > main { min-height: 400px; }
+    .ps-workspace > aside:last-child { grid-column: 1 / -1; width: 100%; max-height: 320px; }
+    #ps-welcome-overlay { padding: 8px; }
+    #ps-dropzone { padding: 16px; }
+}
+.ps-ruler-top span, .ps-ruler-left span { color: #aaa; }
+#photoStudioModal .bg-sky-600 { background-color: #0369a1; }

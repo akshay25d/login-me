@@ -12,6 +12,11 @@ service cloud.firestore {
           && request.auth.uid == userId;
       }
 
+      match /panApplications/{applicationId} {
+        allow create, read, update, delete: if request.auth != null
+          && request.auth.uid == userId;
+      }
+
       match /transactions/{transactionId} {
         allow create, read, update, delete: if request.auth != null
           && request.auth.uid == userId;

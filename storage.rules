@@ -2,10 +2,19 @@ rules_version = '2';
 
 service firebase.storage {
   match /b/{bucket}/o {
+    // PAN application attachments are private to the signed-in operator.
+    match /users/{userId}/pan-applications/{applicationId}/{fileName} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('(image/(jpeg|png|webp)|application/pdf)');
+    }
+
     // A profile photo belongs to, and can be read or replaced only by, its owner.
     match /users/{userId}/profile/{fileName} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow write: if request.auth != null
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null
         && request.auth.uid == userId
         && request.resource.size <= 5 * 1024 * 1024
         && request.resource.contentType.matches('image/(jpeg|png|webp)');
